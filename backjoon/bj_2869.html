@@ -8,6 +8,9 @@
   </head>
   <body>
     <script>
+
+      //런타임 에러
+      //=========================================================
       function answer1(a, b, c) {
         let now = 0;
         let day = 0;
@@ -22,7 +25,9 @@
         }
         console.log(day);
       }
-
+      
+      //정상 동작
+      //=========================================================
       function answer2(up, down, totalMeter) {
         const days = Math.ceil((totalMeter - down) / (up - down));
         return console.log(days);
