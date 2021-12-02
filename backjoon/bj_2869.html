@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function answer1(a, b, c) {
+        let now = 0;
+        let day = 0;
+        while (now < c) {
+          now += a;
+          if (now >= c) {
+            day++;
+            break;
+          }
+          now -= b;
+          day++;
+        }
+        console.log(day);
+      }
+
+      function answer2(up, down, totalMeter) {
+        const days = Math.ceil((totalMeter - down) / (up - down));
+        return console.log(days);
+      }
+
+      answer2(2, 1, 5);
+      answer2(100, 99, 1000000000);
+    </script>
+  </body>
+</html>
