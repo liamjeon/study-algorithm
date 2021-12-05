@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function allTime(start, end) {
+        let start_h = start.split(":")[0];
+        let start_m = start.split(":")[1];
+        let end_h = end.split(":")[0];
+        let end_m = end.split(":")[1];
+
+        return (end_h - start_h) * 60 + (end_m - start_m); //총 재생시간
+      }
+
+      function makeRecord(record) {
+        let tmpRecord = record.split("");
+        let newRecord = [];
+        for (let i = 0; i < tmpRecord.length; i++) {
+          if (tmpRecord[i] !== "#") {
+            newRecord.push(tmpRecord[i]);
+          } else {
+            newRecord.pop();
+            newRecord.push(`${tmpRecord[i - 1]}#`);
+          }
+        }
+        return newRecord;
+      }
+
+      function makeAllPlayRecord(time, record) {
+        let allRecord = [];
+        for (let i = 0; i < time; i++) {
+          allRecord.push(record[i % record.length]);
+        }
+        return allRecord;
+      }
+
+      function answer(m, musicinfos) {
+        let startTime = [];
+        let endTime = [];
+        let musicName = [];
+        let orgRecord = [];
+        let allTimes = [];
+        let allRecord = [];
+        let mm = makeRecord(m);
+
+        for (let i = 0; i < musicinfos.length; i++) {
+          let splitMusicinfos = musicinfos[i].split(",");
+          startTime[i] = splitMusicinfos[0];
+          endTime[i] = splitMusicinfos[1];
+          musicName[i] = splitMusicinfos[2];
+          orgRecord[i] = makeRecord(splitMusicinfos[3]);
+          allTimes[i] = allTime(startTime[i], endTime[i]);
+          allRecord[i] = makeAllPlayRecord(allTimes[i], orgRecord[i]);
+        }
+
+        let music = "";
+        let tmpTime = 0;
+
+        for (let i = 0; i < musicinfos.length; i++) {
+          console.log(allRecord[i]);
+          for (let j = 0; j < allRecord[i].length - (mm.length - 1); j++) {
+            for (let k = 0; k < mm.length; k++) {
+              console.log(k, mm.length - 1, mm[k], allRecord[i][j + k]);
+              if (allRecord[i][j + k] !== mm[k]) {
+                break;
+              }
+              if (k === mm.length - 1) {
+                //Record에 들은 것이 존재한다면
+                if (!music) {
+                  music = musicName[i];
+                  tmpTime = allTimes[i];
+                } else if (music) {
+                  if (allTimes[i] > tmpTime) {
+                    tmpTime = allTimes[i];
+                    music = musicName[i];
+                  }
+                }
+              }
+            }
+          }
+        }
+        if (!music) music = "(None)";
+        console.log(music);
+      }
+      answer("ABC", ["12:00,12:14,HELLO,C#DEFGAB", "13:00,13:05,WORLD,ABCDEF"]);
+      answer("CC#BCC#BCC#BCC#B", [
+        "03:00,03:30,FOO,CC#B",
+        "04:00,04:08,BAR,CC#BCC#BCC#B",
+      ]);
+    </script>
+  </body>
+</html>
