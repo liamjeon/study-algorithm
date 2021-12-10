@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const input = require("fs")
+        .readFileSync("/dev/stdin")
+        .toString()
+        .trim()
+        .split("\n");
+      const n = input.shift();
+
+      function answer(n, s) {
+        for (let k = 0; k < n; k++) {
+          let a = [];
+          for (let j = 0; j < s[k].length; j++) {
+            if (s[k][j] === "(") {
+              a.push("(");
+            } else {
+              if (!a.pop()) {
+                return consol.log("NO");
+              }
+            }
+          }
+          if (a.length !== 0) return console.log("NO");
+          console.log("YES");
+        }
+      }
+
+      answer(n, input);
+    </script>
+  </body>
+</html>
