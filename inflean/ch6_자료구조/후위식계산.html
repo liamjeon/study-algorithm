@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function cal(a, b, c) {
+        switch (c) {
+          case "+":
+            return a + b;
+
+          case "-":
+            return a - b;
+
+          case "*":
+            return a * b;
+
+          case "/":
+            return a / b;
+        }
+      }
+
+      function solution(input) {
+        let stack = [];
+        for (let i = 0; i < input.length; i++) {
+          if (isNaN(input[i])) {
+            let first = stack.pop();
+            let second = stack.pop();
+            stack.push(cal(Number(second), Number(first), input[i]));
+          } else {
+            stack.push(input[i]);
+          }
+        }
+        console.log(stack);
+      }
+
+      let str = "352+*9-";
+      solution(str);
+    </script>
+  </body>
+</html>
