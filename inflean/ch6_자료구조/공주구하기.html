@@ -8,13 +8,19 @@
   </head>
   <body>
     <script>
-      function solution(input) {
-          let answer;
-          
+      function solution(n, k) {
+          let queue = Array.from({length:8}, (v,i)=>i+1);
+          let answer = 0;
+
+          while(queue.length){
+              for(let i=1; i<k; i++) queue.push(queue.shift());
+              queue.shift();
+              if(queue.length === 1) answer = queue.shift();
+          }
           return answer;
       }
       let input = "";
-      console.log(solution(input));
+      console.log(solution(8, 3));
     </script>
   </body>
 </html>
